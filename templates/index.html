@@ -218,46 +218,68 @@ body::after{
 /* Nav */
 .nav{
   position:sticky;top:0;z-index:20;
-  background:rgba(255,255,255,0.88);
+  background:rgba(255,255,255,0.92);
   backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
-  padding:0 32px;
-  height:64px;
+  padding:0 20px;
+  height:56px;
   display:flex;align-items:center;justify-content:space-between;
+  gap:10px;
   box-shadow:0 1px 12px rgba(0,0,0,0.06);
 }
-.nav-brand{display:flex;align-items:center;gap:10px}
-.nav-brand img{width:36px;height:36px;border-radius:50%;border:2px solid var(--border)}
-.nav-brand-name{font-family:'Sora',sans-serif;font-size:17px;font-weight:800;color:var(--text);letter-spacing:-.3px}
+.nav-brand{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.nav-brand img{width:32px;height:32px;border-radius:50%;border:2px solid var(--border)}
+.nav-brand-name{font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:var(--text);letter-spacing:-.3px}
 .nav-brand-name span{color:var(--red)}
-.nav-right{display:flex;align-items:center;gap:10px}
+
+.nav-right{
+  display:flex;align-items:center;gap:8px;
+  min-width:0;/* allow shrinking */
+  flex:1;
+  justify-content:flex-end;
+}
 
 .admin-chip{
-  display:flex;align-items:center;gap:6px;
+  display:flex;align-items:center;gap:5px;
   background:var(--red-pale);
   border:1.5px solid rgba(212,43,43,0.25);
-  border-radius:50px;padding:5px 14px;
-  font-size:11px;font-weight:700;letter-spacing:1.5px;
+  border-radius:50px;padding:4px 10px;
+  font-size:10px;font-weight:700;letter-spacing:1px;
   color:var(--red);text-transform:uppercase;
+  white-space:nowrap;flex-shrink:0;
 }
-.admin-chip::before{content:'⚡';font-size:12px}
+.admin-chip::before{content:'⚡';font-size:11px}
 
 .user-chip{
-  display:flex;align-items:center;gap:7px;
+  display:flex;align-items:center;gap:6px;
   background:var(--surface2);
   border:1px solid var(--border);
-  border-radius:50px;padding:6px 14px;
-  font-size:13px;font-weight:500;color:var(--text2);
+  border-radius:50px;padding:5px 12px;
+  font-size:12px;font-weight:500;color:var(--text2);
+  min-width:0;/* allow shrinking */
+  overflow:hidden;
 }
-.user-chip strong{color:var(--text);font-weight:700}
+.user-chip strong{
+  color:var(--text);font-weight:700;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  max-width:140px;
+}
+/* On small screens shrink the email further */
+@media(max-width:480px){
+  .user-chip strong{ max-width:80px }
+  .user-chip .user-icon{ display:none }
+}
 
 .nav-btn{
   background:transparent;
   border:1.5px solid var(--border);
-  border-radius:50px;padding:6px 16px;
+  border-radius:50px;padding:5px 12px;
   font-family:'DM Sans',sans-serif;
-  font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;
+  font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;
   transition:all .2s;
+  white-space:nowrap;flex-shrink:0;
 }
 .nav-btn:hover{border-color:var(--red);color:var(--red);background:var(--red-pale)}
 
@@ -1054,7 +1076,10 @@ body::after{
       <span class="nav-brand-name">Red<span>Sorm</span></span>
     </div>
     <div class="nav-right">
-      <div class="user-chip">👤 <strong id="claimed-user-display">—</strong></div>
+      <div class="user-chip">
+        <span class="user-icon">👤</span>
+        <strong id="claimed-user-display">—</strong>
+      </div>
       <button class="nav-btn" onclick="doLogout()">Sign out</button>
     </div>
   </nav>
@@ -1088,7 +1113,10 @@ body::after{
     </div>
     <div class="nav-right">
       <div id="admin-chip" class="admin-chip" style="display:none">Admin</div>
-      <div class="user-chip">👤 <strong id="user-display">—</strong></div>
+      <div class="user-chip">
+        <span class="user-icon">👤</span>
+        <strong id="user-display">—</strong>
+      </div>
       <button class="nav-btn" onclick="doLogout()">Sign out</button>
     </div>
   </nav>
@@ -1225,8 +1253,6 @@ async function doLogin() {
 
   document.getElementById('login-screen').style.display = 'none';
   const disp = contact.length > 24 ? contact.slice(0, 22) + '…' : contact;
-
-  // ── User who already claimed → show their coupon wall, no grid ──
   if (data.role === 'user' && data.already_claimed) {
     myClaimedId    = data.already_claimed.id;
     window._myCode = data.already_claimed.code;
