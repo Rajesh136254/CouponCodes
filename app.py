@@ -3,7 +3,8 @@ import sqlite3, hashlib, re
 from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = "redsorm-secret-key-2024-xK9mP"
+import os
+app.secret_key = os.environ.get("SECRET_KEY", "redsorm-secret-key-2024-xK9mP")
 DB = "redsorm.db"
 
 COUPONS = [
@@ -16,7 +17,7 @@ COUPONS = [
     ("WELCOME10", 10),
 ]
 
-ADMIN_CONTACTS = {"admin@redsorm.in", "9999999999"}  # admin email + phone
+ADMIN_CONTACTS = {"adminredsorm251392@redsorm.in", "9999999999"}  # admin email + phone
 
 
 def get_db():
@@ -218,6 +219,8 @@ def admin_coupons():
     return jsonify([dict(r) for r in rows])
 
 
+# Run init on every startup (gunicorn and direct)
+init_db()
+
 if __name__ == "__main__":
-    init_db()
     app.run(debug=True, port=5000)
