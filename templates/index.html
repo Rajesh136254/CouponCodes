@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>RedSorm — Early Bird Exclusive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Sora:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --red:#d42b2b;
+  --red-light:#f04040;
+  --red-pale:#fff0f0;
+  --red-pale2:#ffe5e5;
+  --bg:#f5f4f2;
+  --bg2:#fffefe;
+  --surface:#ffffff;
+  --surface2:#fafafa;
+  --border:#e8e4e0;
+  --border2:#f0ecec;
+  --text:#1a1410;
+  --text2:#5c5450;
+  --text3:#9a9490;
+  --shadow-sm:0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md:0 8px 32px rgba(0,0,0,0.10);
+  --shadow-lg:0 24px 60px rgba(0,0,0,0.13);
+  --shadow-red:0 8px 32px rgba(212,43,43,0.22);
+  --shadow-red-lg:0 20px 60px rgba(212,43,43,0.28);
+  --radius:20px;
+  --radius-sm:12px;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── Background texture ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -10%,rgba(212,43,43,0.07) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 40% at 95% 90%,rgba(212,43,43,0.04) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 30% at 5% 60%,rgba(255,140,0,0.03) 0%,transparent 50%);
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    radial-gradient(circle,rgba(212,43,43,0.06) 1px,transparent 1px);
+  background-size:40px 40px;
+  mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black 30%,transparent 100%);
+}
+
+#canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5}
+.page{position:relative;z-index:1}
+
+/* ══════════════════════════════════════════
+   LOGIN
+══════════════════════════════════════════ */
+#login-screen{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:32px 20px;
+}
+
+.login-wrap{
+  width:100%;max-width:440px;
+}
+
+/* Floating badge above card */
+.login-badge{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--red);color:#fff;
+  border-radius:50px;padding:8px 20px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  width:fit-content;margin:0 auto 20px;
+  box-shadow:var(--shadow-red);
+  animation:badgeFloat 2.5s ease-in-out infinite;
+}
+.login-badge::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:#fff;animation:blink 1.2s ease-in-out infinite;
+}
+@keyframes badgeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+.login-card{
+  background:var(--surface);
+  border-radius:28px;
+  padding:48px 44px 44px;
+  box-shadow:var(--shadow-lg),0 0 0 1px var(--border);
+  position:relative;overflow:hidden;
+}
+.login-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--red),#ff6b6b,var(--red));
+  background-size:200% 100%;
+  animation:shimmerBar 2.5s linear infinite;
+}
+@keyframes shimmerBar{0%{background-position:0% 0}100%{background-position:200% 0}}
+
+.logo-area{text-align:center;margin-bottom:36px}
+.logo-ring{
+  display:inline-block;position:relative;
+  padding:4px;border-radius:50%;
+  background:linear-gradient(135deg,var(--red),#ff8080,var(--red));
+  background-size:200% 200%;
+  animation:ringRotate 3s linear infinite;
+  box-shadow:var(--shadow-red);
+}
+@keyframes ringRotate{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.logo-ring img{
+  width:88px;height:88px;border-radius:50%;
+  display:block;border:3px solid #fff;
+}
+.brand-name{
+  font-family:'Sora',sans-serif;
+  font-size:26px;font-weight:800;
+  color:var(--text);margin-top:14px;
+  letter-spacing:-.5px;
+}
+.brand-name span{color:var(--red)}
+.brand-tagline{
+  font-size:11px;font-weight:600;letter-spacing:3px;
+  color:var(--text3);text-transform:uppercase;margin-top:4px;
+}
+.brand-url{
+  display:inline-block;margin-top:6px;
+  font-size:12px;font-weight:600;color:var(--red);
+  text-decoration:none;letter-spacing:.5px;
+  border-bottom:1px dashed rgba(212,43,43,.3);
+  transition:border-color .2s;
+}
+.brand-url:hover{border-color:var(--red)}
+
+.login-h{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:22px;font-weight:800;color:var(--text);
+  margin-bottom:6px;letter-spacing:-.3px;
+}
+.login-p{
+  font-size:14px;color:var(--text2);line-height:1.6;
+  margin-bottom:28px;font-weight:400;
+}
+
+.field{position:relative;margin-bottom:14px}
+.field-icon{
+  position:absolute;left:15px;top:50%;transform:translateY(-50%);
+  font-size:17px;pointer-events:none;z-index:2;
+}
+.field input{
+  width:100%;
+  background:var(--surface2);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:14px 14px 14px 46px;
+  font-family:'DM Sans',sans-serif;
+  font-size:15px;color:var(--text);
+  outline:none;
+  transition:border-color .2s,box-shadow .2s,background .2s;
+}
+.field input::placeholder{color:var(--text3)}
+.field input:focus{
+  border-color:var(--red);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(212,43,43,0.1);
+}
+
+.login-btn{
+  width:100%;margin-top:6px;
+  background:var(--red);
+  border:none;border-radius:var(--radius-sm);
+  padding:15px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:15px;font-weight:700;color:#fff;
+  letter-spacing:.3px;cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:transform .2s,box-shadow .2s,background .2s;
+  box-shadow:var(--shadow-red);
+}
+.login-btn::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.2) 0%,transparent 50%);
+  opacity:0;transition:opacity .2s;
+}
+.login-btn:hover{background:var(--red-light);box-shadow:var(--shadow-red-lg);transform:translateY(-2px)}
+.login-btn:hover::after{opacity:1}
+.login-btn:active{transform:translateY(0)}
+.login-btn.loading{opacity:.75;pointer-events:none}
+
+.login-err{
+  margin-top:12px;
+  background:var(--red-pale);
+  border:1.5px solid rgba(212,43,43,0.2);
+  border-radius:10px;padding:12px 16px;
+  font-size:13px;color:var(--red);font-weight:500;
+  display:none;line-height:1.5;
+}
+.login-err.show{display:block;animation:slideDown .3s ease}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════════════════
+   COUPON SCREEN
+══════════════════════════════════════════ */
+#coupon-screen{display:none}
+#coupon-screen.show{display:block;animation:fadeUp .5s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* Nav */
+.nav{
+  position:sticky;top:0;z-index:20;
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 32px;
+  height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 1px 12px rgba(0,0,0,0.06);
+}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-brand img{width:36px;height:36px;border-radius:50%;border:2px solid var(--border)}
+.nav-brand-name{font-family:'Sora',sans-serif;font-size:17px;font-weight:800;color:var(--text);letter-spacing:-.3px}
+.nav-brand-name span{color:var(--red)}
+.nav-right{display:flex;align-items:center;gap:10px}
+
+.admin-chip{
+  display:flex;align-items:center;gap:6px;
+  background:var(--red-pale);
+  border:1.5px solid rgba(212,43,43,0.25);
+  border-radius:50px;padding:5px 14px;
+  font-size:11px;font-weight:700;letter-spacing:1.5px;
+  color:var(--red);text-transform:uppercase;
+}
+.admin-chip::before{content:'⚡';font-size:12px}
+
+.user-chip{
+  display:flex;align-items:center;gap:7px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:50px;padding:6px 14px;
+  font-size:13px;font-weight:500;color:var(--text2);
+}
+.user-chip strong{color:var(--text);font-weight:700}
+
+.nav-btn{
+  background:transparent;
+  border:1.5px solid var(--border);
+  border-radius:50px;padding:6px 16px;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;
+  transition:all .2s;
+}
+.nav-btn:hover{border-color:var(--red);color:var(--red);background:var(--red-pale)}
+
+/* Hero */
+.hero{
+  text-align:center;
+  padding:72px 24px 52px;
+  max-width:680px;margin:0 auto;
+}
+.hero-chip{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--red-pale);
+  border:1.5px solid rgba(212,43,43,0.2);
+  border-radius:50px;padding:7px 20px;
+  font-size:12px;font-weight:700;letter-spacing:1.5px;
+  color:var(--red);text-transform:uppercase;
+  margin-bottom:24px;
+}
+.hero-chip-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--red);animation:blink 1.2s ease-in-out infinite;
+}
+.hero-title{
+  font-family:'Sora',sans-serif;
+  font-size:clamp(34px,5.5vw,62px);
+  font-weight:800;line-height:1.08;
+  letter-spacing:-1.5px;
+  color:var(--text);
+  margin-bottom:18px;
+}
+.hero-title em{
+  font-style:normal;color:var(--red);
+  position:relative;
+}
+.hero-title em::after{
+  content:'';position:absolute;
+  left:0;right:0;bottom:-4px;height:4px;
+  background:linear-gradient(90deg,var(--red),#ff8080);
+  border-radius:4px;
+  transform:scaleX(0);transform-origin:left;
+  animation:underlineIn .8s .5s ease forwards;
+}
+@keyframes underlineIn{to{transform:scaleX(1)}}
+.hero-sub{
+  font-size:16px;font-weight:400;color:var(--text2);
+  line-height:1.7;margin-bottom:40px;
+}
+
+/* Stats */
+.stats-row{
+  display:flex;align-items:stretch;justify-content:center;
+  gap:12px;flex-wrap:wrap;
+}
+.stat-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;padding:16px 28px;
+  box-shadow:var(--shadow-sm);
+  text-align:center;min-width:120px;
+  transition:transform .2s,box-shadow .2s;
+}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.stat-num{
+  font-family:'Sora',sans-serif;
+  font-size:32px;font-weight:800;color:var(--red);
+  line-height:1;
+}
+.stat-lbl{
+  font-size:11px;font-weight:600;color:var(--text3);
+  text-transform:uppercase;letter-spacing:1px;
+  margin-top:4px;
+}
+.stat-card.highlight{
+  background:var(--red);border-color:var(--red);
+  box-shadow:var(--shadow-red);
+}
+.stat-card.highlight .stat-num{color:#fff}
+.stat-card.highlight .stat-lbl{color:rgba(255,255,255,.7)}
+
+/* ══════════════════════════════════════════
+   GRID
+══════════════════════════════════════════ */
+.grid-section{
+  padding:0 28px 100px;
+  max-width:1240px;margin:0 auto;
+}
+.grid-label{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:700;color:var(--text3);
+  letter-spacing:1.5px;text-transform:uppercase;
+  margin-bottom:20px;display:flex;align-items:center;gap:10px;
+}
+.grid-label::after{
+  content:'';flex:1;height:1px;background:var(--border);
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(196px,1fr));
+  gap:16px;
+}
+
+/* ══════════════════════════════════════════
+   CARD BASE
+══════════════════════════════════════════ */
+.c-card{
+  position:relative;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius);
+  padding:28px 20px 24px;
+  text-align:center;
+  user-select:none;
+  overflow:hidden;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),
+             box-shadow .3s ease,
+             border-color .3s ease;
+}
+
+/* Shine sweep */
+.c-card::after{
+  content:'';position:absolute;
+  top:0;left:-120%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);
+  transform:skewX(-15deg);pointer-events:none;
+}
+
+/* Card position number */
+.c-num{
+  position:absolute;top:12px;left:14px;
+  font-family:'Sora',sans-serif;
+  font-size:10px;font-weight:700;
+  color:var(--text3);letter-spacing:.5px;
+}
+
+/* ══ MYSTERY card (unclaimed, user) ══ */
+.c-card.mystery{cursor:pointer}
+.c-card.mystery:hover{
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:var(--shadow-red-lg);
+  border-color:var(--red);
+}
+.c-card.mystery:hover::after{animation:sweep .55s ease forwards}
+@keyframes sweep{to{left:160%}}
+.c-card.mystery:hover .mystery-box{
+  background:var(--red-pale2);
+  border-color:rgba(212,43,43,.4);
+}
+.c-card.mystery:hover .mystery-q{
+  color:var(--red);
+  text-shadow:0 0 20px rgba(212,43,43,.25);
+}
+
+.mystery-icon{
+  font-size:38px;margin-bottom:10px;display:block;
+  animation:mFloat 3s ease-in-out infinite;
+  transition:transform .3s;
+}
+@keyframes mFloat{
+  0%,100%{transform:translateY(0) rotate(-4deg)}
+  50%{transform:translateY(-7px) rotate(4deg)}
+}
+.c-card.mystery:hover .mystery-icon{animation:none;transform:scale(1.18) rotate(8deg)}
+
+.mystery-box{
+  background:var(--bg);
+  border:1.5px dashed rgba(212,43,43,.25);
+  border-radius:12px;padding:10px 14px;
+  margin-bottom:14px;
+  transition:background .2s,border-color .2s;
+}
+.mystery-q{
+  font-family:'Sora',sans-serif;
+  font-size:40px;font-weight:800;
+  color:var(--text3);letter-spacing:2px;
+  line-height:1;
+  transition:color .25s,text-shadow .25s;
+}
+.mystery-q-label{
+  font-size:10px;font-weight:700;letter-spacing:2px;
+  color:var(--text3);text-transform:uppercase;margin-top:4px;
+}
+.mystery-hint{
+  font-size:12px;color:var(--text3);font-weight:400;
+  margin:0 0 14px;line-height:1.4;
+}
+
+.reveal-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--red);color:#fff;
+  border:none;border-radius:50px;
+  padding:9px 22px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:12px;font-weight:700;letter-spacing:.5px;
+  cursor:pointer;
+  transition:background .2s,box-shadow .2s,transform .15s;
+  box-shadow:0 4px 14px rgba(212,43,43,.3);
+}
+.reveal-btn:hover{background:var(--red-light);box-shadow:0 6px 20px rgba(212,43,43,.4);transform:scale(1.04)}
+
+/* ══ MINE card ══ */
+.c-card.mine{
+  background:linear-gradient(145deg,#fff8f8,#fff);
+  border-color:var(--red);
+  box-shadow:var(--shadow-red-lg),0 0 0 1px var(--red);
+  cursor:default;
+  animation:mineReveal .65s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes mineReveal{
+  0%{transform:scale(.82);opacity:0}
+  65%{transform:scale(1.04)}
+  100%{transform:scale(1);opacity:1}
+}
+.mine-tag{
+  position:absolute;top:-1px;right:-1px;
+  background:var(--red);
+  border-radius:0 var(--radius) 0 12px;
+  padding:6px 14px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:10px;font-weight:700;letter-spacing:1px;
+  color:#fff;text-transform:uppercase;
+}
+.mine-icon{font-size:36px;margin-bottom:8px;display:block}
+.mine-disc{
+  font-family:'Sora',sans-serif;
+  font-size:48px;font-weight:800;color:var(--red);
+  line-height:1;letter-spacing:-1px;
+}
+.mine-off{
+  font-size:11px;font-weight:700;letter-spacing:2px;
+  color:var(--red);text-transform:uppercase;opacity:.7;
+  margin-bottom:12px;
+}
+.mine-code-box{
+  background:var(--red-pale);
+  border:1.5px dashed rgba(212,43,43,.35);
+  border-radius:10px;padding:10px 12px;margin-bottom:12px;
+}
+.mine-code-lbl{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--red);text-transform:uppercase;margin-bottom:4px;opacity:.7}
+.mine-code{
+  font-family:'Sora',sans-serif;
+  font-size:14px;font-weight:800;letter-spacing:2.5px;color:var(--text);
+}
+.copy-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  background:transparent;
+  border:1.5px solid rgba(212,43,43,.3);
+  border-radius:50px;padding:7px 18px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;font-weight:700;color:var(--red);
+  cursor:pointer;letter-spacing:.5px;
+  transition:all .2s;
+}
+.copy-btn:hover{background:var(--red);color:#fff;border-color:var(--red);box-shadow:0 4px 14px rgba(212,43,43,.3)}
+
+/* ══ CLAIMED-BY-OTHERS card ══ */
+.c-card.taken{
+  background:var(--surface2);
+  border-color:var(--border2);
+  cursor:not-allowed;
+  pointer-events:none;
+}
+.taken-icon{font-size:30px;margin-bottom:8px;display:block;opacity:.35;filter:grayscale(1)}
+.taken-dash{
+  font-family:'Sora',sans-serif;
+  font-size:36px;font-weight:800;color:var(--border);
+  line-height:1;margin-bottom:6px;
+}
+.taken-label{
+  font-size:11px;font-weight:600;letter-spacing:1.5px;
+  color:var(--text3);text-transform:uppercase;
+  background:var(--bg);border-radius:50px;
+  padding:4px 12px;display:inline-block;
+}
+
+/* ══ ADMIN card ══ */
+.c-card.admin-card{cursor:default}
+.admin-disc{
+  font-family:'Sora',sans-serif;
+  font-size:40px;font-weight:800;
+  color:var(--text);line-height:1;margin-bottom:4px;
+}
+.admin-code-text{
+  font-family:'Sora',sans-serif;
+  font-size:11px;font-weight:700;letter-spacing:1.5px;
+  color:var(--red);background:var(--red-pale);
+  border-radius:6px;padding:4px 10px;display:inline-block;
+  margin-bottom:6px;
+}
+.admin-status{
+  font-size:10px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;border-radius:50px;
+  padding:3px 10px;display:inline-block;
+}
+.admin-status.free{background:#edfff5;color:#1a9e5c;border:1px solid rgba(26,158,92,.2)}
+.admin-status.claimed{background:var(--red-pale);color:var(--red);border:1px solid rgba(212,43,43,.2)}
+
+/* ══════════════════════════════════════════
+   WINNER MODAL
+══════════════════════════════════════════ */
+#winner-overlay{
+  display:none;position:fixed;inset:0;z-index:60;
+  background:rgba(26,20,16,.55);
+  backdrop-filter:blur(10px);
+  align-items:center;justify-content:center;
+  padding:20px;
+}
+#winner-overlay.open{display:flex;animation:ovIn .3s ease}
+@keyframes ovIn{from{opacity:0}to{opacity:1}}
+
+#winner-modal{
+  background:#fff;
+  border-radius:28px;
+  padding:52px 40px 44px;
+  text-align:center;
+  max-width:420px;width:100%;
+  box-shadow:0 40px 100px rgba(0,0,0,.2),0 0 0 1px var(--border);
+  position:relative;overflow:hidden;
+  animation:modalPop .55s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes modalPop{from{transform:scale(.65) translateY(30px);opacity:0}to{transform:scale(1);opacity:1}}
+#winner-modal::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:5px;
+  background:linear-gradient(90deg,var(--red),#ff8080,var(--red));
+  background-size:200% 100%;animation:shimmerBar 2s linear infinite;
+}
+.confetti-wrap{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:28px}
+
+.w-icon{font-size:56px;margin-bottom:8px;animation:wBounce 1s ease infinite}
+@keyframes wBounce{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.05)}}
+.w-disc{
+  font-family:'Sora',sans-serif;
+  font-size:80px;font-weight:800;
+  color:var(--red);line-height:1;
+  letter-spacing:-2px;
+}
+.w-off{
+  font-size:13px;font-weight:700;letter-spacing:3px;
+  color:var(--text3);text-transform:uppercase;margin-bottom:28px;
+}
+.w-code-box{
+  background:var(--red-pale);
+  border:1.5px dashed rgba(212,43,43,.3);
+  border-radius:14px;padding:18px 24px;margin-bottom:20px;
+}
+.w-code-lbl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--red);text-transform:uppercase;margin-bottom:6px;opacity:.7}
+.w-code{
+  font-family:'Sora',sans-serif;
+  font-size:22px;font-weight:800;letter-spacing:3px;color:var(--text);
+}
+.w-copy-btn{
+  display:block;width:100%;
+  background:var(--red);border:none;border-radius:14px;
+  padding:15px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:15px;font-weight:700;color:#fff;
+  letter-spacing:.3px;cursor:pointer;
+  transition:background .2s,box-shadow .2s,transform .15s;
+  box-shadow:var(--shadow-red);
+}
+.w-copy-btn:hover{background:var(--red-light);box-shadow:var(--shadow-red-lg);transform:translateY(-2px)}
+.w-close-btn{
+  display:block;width:100%;margin-top:10px;
+  background:transparent;border:1.5px solid var(--border);
+  border-radius:14px;padding:13px;
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;font-weight:600;color:var(--text2);cursor:pointer;
+  transition:all .2s;
+}
+.w-close-btn:hover{border-color:var(--text2);color:var(--text)}
+
+/* ══════════════════════════════════════════
+   ADMIN DRAWER (FAB)
+══════════════════════════════════════════ */
+#admin-panel{position:fixed;bottom:28px;right:28px;z-index:30}
+
+.admin-fab{
+  width:54px;height:54px;border-radius:50%;
+  background:var(--red);border:none;cursor:pointer;
+  box-shadow:var(--shadow-red-lg);
+  font-size:20px;display:flex;align-items:center;justify-content:center;
+  transition:transform .3s,box-shadow .3s;
+  position:relative;z-index:2;
+}
+.admin-fab:hover{transform:scale(1.08) rotate(20deg);box-shadow:0 12px 40px rgba(212,43,43,.5)}
+.admin-fab .fab-tip{
+  position:absolute;right:60px;
+  background:var(--text);color:#fff;
+  border-radius:8px;padding:5px 12px;
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;font-weight:600;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.admin-fab .fab-tip::after{
+  content:'';position:absolute;
+  right:-6px;top:50%;transform:translateY(-50%);
+  border:6px solid transparent;border-right:none;
+  border-left-color:var(--text);
+}
+#admin-panel:hover .fab-tip{opacity:1}
+
+.admin-drawer{
+  position:absolute;bottom:64px;right:0;
+  width:380px;max-height:80vh;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:20px;
+  overflow:hidden;display:none;
+  box-shadow:0 -4px 60px rgba(0,0,0,.14);
+  flex-direction:column;
+}
+.admin-drawer.open{display:flex;animation:drawerUp .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes drawerUp{from{transform:translateY(16px) scale(.95);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+
+.drawer-head{
+  padding:18px 20px 14px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.drawer-title{
+  font-family:'Sora',sans-serif;
+  font-size:14px;font-weight:800;color:var(--text);
+}
+.drawer-close{
+  background:var(--bg);border:none;border-radius:50%;
+  width:28px;height:28px;cursor:pointer;
+  font-size:16px;color:var(--text2);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;
+}
+.drawer-close:hover{background:var(--red-pale);color:var(--red)}
+
+.drawer-tabs{
+  display:flex;gap:0;
+  border-bottom:1px solid var(--border);
+}
+.dtab{
+  flex:1;background:transparent;
+  border:none;border-bottom:2.5px solid transparent;
+  padding:11px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:700;color:var(--text3);
+  cursor:pointer;transition:all .2s;
+}
+.dtab.active{color:var(--red);border-bottom-color:var(--red);background:var(--red-pale)}
+
+.drawer-body{
+  flex:1;overflow-y:auto;padding:16px 18px;
+  background:var(--surface2);
+}
+.drawer-body::-webkit-scrollbar{width:4px}
+.drawer-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+.add-row{
+  display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;
+}
+.d-input{
+  flex:1;min-width:120px;
+  background:#fff;border:1.5px solid var(--border);
+  border-radius:8px;padding:9px 12px;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;color:var(--text);outline:none;
+  transition:border-color .2s;
+}
+.d-input::placeholder{color:var(--text3)}
+.d-input:focus{border-color:var(--red)}
+.d-add-btn{
+  background:var(--red);border:none;border-radius:8px;
+  padding:9px 16px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:12px;font-weight:700;color:#fff;
+  cursor:pointer;transition:background .2s;white-space:nowrap;
+}
+.d-add-btn:hover{background:var(--red-light)}
+
+.wl-item{
+  display:flex;align-items:center;justify-content:space-between;
+  background:#fff;border:1px solid var(--border);
+  border-radius:10px;padding:10px 13px;margin-bottom:7px;
+}
+.wl-contact{font-size:13px;font-weight:600;color:var(--text)}
+.wl-lbl{font-size:11px;color:var(--text3);margin-top:1px}
+.wl-del{
+  background:transparent;border:1px solid rgba(212,43,43,.25);
+  border-radius:6px;padding:4px 10px;
+  font-size:11px;font-weight:600;color:var(--red);cursor:pointer;
+  transition:all .2s;font-family:'DM Sans',sans-serif;
+}
+.wl-del:hover{background:var(--red);color:#fff}
+
+.cp-row{
+  display:flex;align-items:center;gap:8px;
+  background:#fff;border:1px solid var(--border);
+  border-radius:8px;padding:8px 12px;margin-bottom:5px;
+  font-size:12px;
+}
+.cp-code{
+  font-family:'Sora',sans-serif;
+  font-size:10px;font-weight:700;letter-spacing:1px;
+  color:var(--red);flex:1;
+}
+.cp-disc{font-weight:700;color:var(--text);width:32px;text-align:right}
+.badge-free{background:#edfff5;color:#1a9e5c;border:1px solid rgba(26,158,92,.2);border-radius:20px;padding:2px 8px;font-size:10px;font-weight:700}
+.badge-claimed{background:var(--red-pale);color:var(--red);border:1px solid rgba(212,43,43,.2);border-radius:20px;padding:2px 8px;font-size:10px;font-weight:700}
+
+/* ══════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════ */
+#toast{
+  position:fixed;bottom:30px;left:50%;
+  transform:translateX(-50%) translateY(70px);
+  background:var(--text);color:#fff;
+  padding:13px 26px;border-radius:50px;
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;font-weight:600;
+  box-shadow:var(--shadow-lg);
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .4s;
+  opacity:0;z-index:200;white-space:nowrap;pointer-events:none;
+}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* ══════════════════════════════════════════
+   ALREADY CLAIMED WALL
+══════════════════════════════════════════ */
+#claimed-screen.show{display:block;animation:fadeUp .5s ease}
+
+.claimed-wall{
+  min-height:calc(100vh - 64px);
+  display:flex;align-items:center;justify-content:center;
+  padding:40px 20px;
+}
+.claimed-box{
+  background:var(--surface);
+  border-radius:28px;
+  padding:52px 44px 48px;
+  max-width:480px;width:100%;
+  text-align:center;
+  box-shadow:var(--shadow-lg),0 0 0 1px var(--border);
+  position:relative;overflow:hidden;
+}
+.claimed-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:5px;
+  background:linear-gradient(90deg,var(--red),#ff8080,var(--red));
+  background-size:200% 100%;
+  animation:shimmerBar 2.5s linear infinite;
+}
+.claimed-check{
+  width:68px;height:68px;border-radius:50%;
+  background:linear-gradient(135deg,var(--red),#ff6b6b);
+  color:#fff;font-size:30px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+  box-shadow:var(--shadow-red-lg);
+  animation:checkPop .6s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes checkPop{from{transform:scale(0);opacity:0}60%{transform:scale(1.12)}to{transform:scale(1);opacity:1}}
+.claimed-title{
+  font-family:'Sora',sans-serif;
+  font-size:26px;font-weight:800;color:var(--text);
+  letter-spacing:-.5px;margin-bottom:10px;
+}
+.claimed-sub{
+  font-size:14px;color:var(--text2);line-height:1.7;
+  margin-bottom:32px;font-weight:400;
+}
+.claimed-coupon{
+  background:linear-gradient(145deg,#fff8f8,#fff);
+  border:1.5px solid rgba(212,43,43,0.25);
+  border-radius:20px;padding:28px 24px 24px;
+  margin-bottom:24px;
+  box-shadow:var(--shadow-red),inset 0 1px 0 rgba(255,255,255,.8);
+}
+.claimed-disc-row{
+  display:flex;align-items:baseline;justify-content:center;
+  gap:8px;margin-bottom:20px;
+}
+.claimed-disc{
+  font-family:'Sora',sans-serif;
+  font-size:72px;font-weight:800;color:var(--red);
+  line-height:1;letter-spacing:-2px;
+}
+.claimed-disc-off{
+  font-family:'Sora',sans-serif;
+  font-size:22px;font-weight:700;color:var(--red);
+  opacity:.6;letter-spacing:1px;text-transform:uppercase;
+}
+.claimed-code-box{
+  background:var(--red-pale);
+  border:1.5px dashed rgba(212,43,43,.3);
+  border-radius:12px;padding:14px 20px;margin-bottom:16px;
+}
+.claimed-code-lbl{
+  font-size:10px;font-weight:700;letter-spacing:2px;
+  color:var(--red);text-transform:uppercase;opacity:.7;margin-bottom:6px;
+}
+.claimed-code{
+  font-family:'Sora',sans-serif;
+  font-size:20px;font-weight:800;letter-spacing:3px;color:var(--text);
+}
+.claimed-copy-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--red);color:#fff;border:none;
+  border-radius:50px;padding:11px 28px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:700;letter-spacing:.5px;cursor:pointer;
+  transition:background .2s,box-shadow .2s,transform .15s;
+  box-shadow:var(--shadow-red);
+}
+.claimed-copy-btn:hover{background:var(--red-light);box-shadow:var(--shadow-red-lg);transform:translateY(-2px)}
+.claimed-note{
+  font-size:12px;color:var(--text3);line-height:1.6;font-weight:400;
+}
+.claimed-note a{color:var(--red);text-decoration:none;font-weight:600}
+.claimed-note a:hover{text-decoration:underline}
+
+/* ══════════════════════════════════════════
+   HERO LAYOUT WITH BRAND PANELS
+══════════════════════════════════════════ */
+.hero-layout{
+  display:grid;
+  grid-template-columns:260px 1fr 260px;
+  align-items:center;
+  max-width:1280px;
+  margin:0 auto;
+  padding:40px 20px 0;
+  gap:24px;
+}
+
+.hero{
+  text-align:center;
+  padding:48px 24px 52px;
+}
+
+/* ── Panel card ── */
+.brand-panel{ align-self:center }
+
+.bp-card{
+  position:relative;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:var(--shadow-lg);
+  border:1px solid var(--border);
+  /* fixed height — image fills this */
+  height:300px;
+  cursor:default;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
+}
+.bp-card:hover{
+  transform:translateY(-6px) scale(1.015);
+  box-shadow:var(--shadow-red-lg);
+}
+
+/* The actual image — fills card fully */
+.bp-cover{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  transition:transform .5s ease;
+}
+.bp-card:hover .bp-cover{ transform:scale(1.06) }
+
+/* logo.png is square with a dark background — show it centered, padded */
+.bp-cover-logo{
+  object-fit:contain;
+  background:#0a0a0a;
+  padding:24px;
+}
+
+/* logo2.jpeg is landscape — cover fills perfectly */
+.bp-cover-scene{
+  object-fit:cover;
+  object-position:center top;
+}
+
+/* Dark gradient scrim over image so text is readable */
+.bp-scrim{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(10,6,4,0.82) 0%,
+    rgba(10,6,4,0.35) 45%,
+    rgba(10,6,4,0.05) 100%
+  );
+  pointer-events:none;
+}
+/* Right panel scrim also adds a subtle red tint */
+.bp-scrim-right{
+  background:linear-gradient(
+    to top,
+    rgba(100,8,8,0.82) 0%,
+    rgba(60,4,4,0.3) 45%,
+    rgba(0,0,0,0.05) 100%
+  );
+}
+
+/* Text sits at the bottom over the scrim */
+.bp-text{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:20px 18px;
+  z-index:2;
+}
+.bp-label{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:9px;font-weight:700;letter-spacing:2px;
+  color:rgba(255,255,255,0.6);text-transform:uppercase;
+  margin-bottom:5px;
+}
+.bp-tagline{
+  font-family:'Sora',sans-serif;
+  font-size:14px;font-weight:800;
+  color:#fff;line-height:1.3;
+  letter-spacing:-.2px;
+  text-shadow:0 1px 6px rgba(0,0,0,.5);
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media(max-width:960px){
+  .hero-layout{
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:auto auto;
+    padding:24px 16px 0;
+    gap:16px;
+  }
+  .brand-panel-left{ order:1 }
+  .brand-panel-right{ order:2 }
+  .hero{
+    order:3;
+    grid-column:1/-1;
+    padding:36px 16px 40px;
+  }
+  .bp-card{ height:200px }
+  .bp-tagline{ font-size:13px }
+}
+@media(max-width:600px){
+  .hero-layout{
+    grid-template-columns:1fr;
+    padding:16px 14px 0;
+  }
+  .brand-panel-left{ order:2 }
+  .brand-panel-right{ order:3 }
+  .hero{ order:1; grid-column:1 }
+  .bp-card{ height:180px }
+  .login-card{padding:36px 24px 32px}
+  .nav{padding:0 16px;height:56px}
+  .grid-section{padding:0 14px 80px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px}
+  .admin-drawer{width:calc(100vw - 40px)}
+  #winner-modal{padding:40px 24px 32px}
+  .w-disc{font-size:64px}
+}
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div class="page">
+
+<!-- ══════════ LOGIN ══════════ -->
+<div id="login-screen">
+  <div class="login-wrap">
+    <div class="login-badge">
+      <span></span>First 25 Clients — Exclusive Offer
+    </div>
+    <div class="login-card">
+      <div class="logo-area">
+        <div class="logo-ring">
+          <img src="/static/logo.png" alt="RedSorm"
+            onerror="this.outerHTML='<div style=&quot;width:88px;height:88px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-size:24px;font-weight:800;color:#fff&quot;>RS</div>'"/>
+        </div>
+        <div class="brand-name">Red<span>Sorm</span></div>
+        <div class="brand-tagline">Smart Restaurant Ecosystem</div>
+        <a href="https://redsorm.in" target="_blank" class="brand-url">redsorm.in ↗</a>
+      </div>
+      <div class="login-h">Access Your Offer</div>
+      <p class="login-p">Enter your email or phone number to unlock your exclusive early bird discount.</p>
+      <div class="field">
+        <span class="field-icon">✉️</span>
+        <input id="contact-input" type="text" placeholder="Email or phone number"
+          autocomplete="off" autocapitalize="none"/>
+      </div>
+      <button class="login-btn" id="login-btn" onclick="doLogin()">Continue →</button>
+      <div class="login-err" id="login-err"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ ALREADY CLAIMED SCREEN ══════════ -->
+<div id="claimed-screen" style="display:none">
+  <nav class="nav">
+    <div class="nav-brand">
+      <img src="/static/logo.png" alt="RS" onerror="this.style.display='none'"/>
+      <span class="nav-brand-name">Red<span>Sorm</span></span>
+    </div>
+    <div class="nav-right">
+      <div class="user-chip">👤 <strong id="claimed-user-display">—</strong></div>
+      <button class="nav-btn" onclick="doLogout()">Sign out</button>
+    </div>
+  </nav>
+  <div class="claimed-wall">
+    <div class="claimed-box">
+      <div class="claimed-check">✓</div>
+      <div class="claimed-title">You've already claimed!</div>
+      <p class="claimed-sub">Your exclusive early bird discount is locked in. Here's your coupon — save it somewhere safe.</p>
+      <div class="claimed-coupon">
+        <div class="claimed-disc-row">
+          <span class="claimed-disc" id="claimed-disc">—%</span>
+          <span class="claimed-disc-off">OFF</span>
+        </div>
+        <div class="claimed-code-box">
+          <div class="claimed-code-lbl">Your Coupon Code</div>
+          <div class="claimed-code" id="claimed-code">—</div>
+        </div>
+        <button class="claimed-copy-btn" id="claimed-copy-btn" onclick="copyClaimed()">📋 Copy Code</button>
+      </div>
+      <p class="claimed-note">This coupon is exclusively yours and tied to your account. Use it when you sign up on <a href="https://redsorm.in" target="_blank">redsorm.in</a>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ COUPON SCREEN ══════════ -->
+<div id="coupon-screen">
+  <nav class="nav">
+    <div class="nav-brand">
+      <img src="/static/logo.png" alt="RS" onerror="this.style.display='none'"/>
+      <span class="nav-brand-name">Red<span>Sorm</span></span>
+    </div>
+    <div class="nav-right">
+      <div id="admin-chip" class="admin-chip" style="display:none">Admin</div>
+      <div class="user-chip">👤 <strong id="user-display">—</strong></div>
+      <button class="nav-btn" onclick="doLogout()">Sign out</button>
+    </div>
+  </nav>
+
+  <div class="hero-layout">
+
+    <!-- LEFT BRAND PANEL — logo.png (square RS badge) -->
+    <div class="brand-panel brand-panel-left">
+      <div class="bp-card">
+        <img src="/static/logo.png" alt="RedSorm" class="bp-cover bp-cover-logo"/>
+        <div class="bp-scrim"></div>
+        <div class="bp-text">
+          <div class="bp-label">Smart Restaurant Ecosystem</div>
+          <div class="bp-tagline">Redefining how India's restaurants operate</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTRE HERO -->
+    <div class="hero">
+      <div class="hero-chip">
+        <div class="hero-chip-dot"></div>
+        Limited — First 25 Clients Only
+      </div>
+      <h1 class="hero-title">Pick Your<br/><em>Early Bird</em> Discount</h1>
+      <p class="hero-sub">25 mystery cards, each hiding a different discount. Pick one, it's yours forever. Once claimed, it's gone.</p>
+      <div class="stats-row">
+        <div class="stat-card highlight">
+          <div class="stat-num" id="stat-remaining">—</div>
+          <div class="stat-lbl">Remaining</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-claimed">—</div>
+          <div class="stat-lbl">Claimed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">25</div>
+          <div class="stat-lbl">Total Slots</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT BRAND PANEL — logo2.jpeg (landscape illustration) -->
+    <div class="brand-panel brand-panel-right">
+      <div class="bp-card">
+        <img src="/static/logo2.jpeg" alt="RedSorm Platform" class="bp-cover bp-cover-scene"/>
+        <div class="bp-scrim bp-scrim-right"></div>
+        <div class="bp-text">
+          <div class="bp-label">Founding Client Offer</div>
+          <div class="bp-tagline">Lock in up to 90% off — forever</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /hero-layout -->
+
+  <div class="grid-section">
+    <div class="grid-label">Choose your card</div>
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
+
+<!-- Admin FAB -->
+<div id="admin-panel" style="display:none">
+  <button class="admin-fab" onclick="toggleDrawer()">⚙️
+    <div class="fab-tip">Admin Panel</div>
+  </button>
+  <div class="admin-drawer" id="admin-drawer">
+    <div class="drawer-head">
+      <div class="drawer-title">Admin Panel</div>
+      <button class="drawer-close" onclick="toggleDrawer()">✕</button>
+    </div>
+    <div class="drawer-tabs">
+      <button class="dtab active" onclick="switchTab('whitelist',this)">Whitelist</button>
+      <button class="dtab" onclick="switchTab('coupons',this)">Coupons</button>
+    </div>
+    <div class="drawer-body" id="drawer-body"></div>
+  </div>
+</div>
+</div><!-- /page -->
+
+<!-- Winner Modal -->
+<div id="winner-overlay">
+  <div id="winner-modal">
+    <div class="confetti-wrap" id="confetti"></div>
+    <div class="w-icon">🎉</div>
+    <div class="w-disc" id="w-disc">—%</div>
+    <div class="w-off">Off — Early Bird Exclusive</div>
+    <div class="w-code-box">
+      <div class="w-code-lbl">Your Coupon Code</div>
+      <div class="w-code" id="w-code">—</div>
+    </div>
+    <button class="w-copy-btn" onclick="copyWinner()">📋 Copy Coupon Code</button>
+    <button class="w-close-btn" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ══ STATE ══
+let role = null, myContact = '', myClaimedId = null, currentTab = 'whitelist';
+const ICONS = ['🎁','⚡','🔥','💎','🌟','🏆','🎯','💫','🚀','✨','🎊','💥','🛡️','⭐','🎖️','💡','🎪','🌈','🏅','🎗️','🍀','🔮','🎆','🎇','🌙'];
+
+// ══ LOGIN ══
+document.getElementById('contact-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+async function doLogin() {
+  const input = document.getElementById('contact-input');
+  const btn   = document.getElementById('login-btn');
+  const err   = document.getElementById('login-err');
+  const contact = input.value.trim();
+  if (!contact) { showErr('Please enter your email or phone number.'); return; }
+
+  btn.textContent = 'Checking…';
+  btn.classList.add('loading');
+  err.classList.remove('show');
+
+  const res  = await fetch('/api/login', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({contact})
+  });
+  const data = await res.json();
+
+  btn.textContent = 'Continue →';
+  btn.classList.remove('loading');
+
+  if (data.error) { showErr(data.error); return; }
+
+  role = data.role;
+  myContact = contact;
+
+  document.getElementById('login-screen').style.display = 'none';
+  const disp = contact.length > 24 ? contact.slice(0, 22) + '…' : contact;
+
+  // ── User who already claimed → show their coupon wall, no grid ──
+  if (data.role === 'user' && data.already_claimed) {
+    myClaimedId    = data.already_claimed.id;
+    window._myCode = data.already_claimed.code;
+    window._myDisc = data.already_claimed.discount;
+
+    document.getElementById('claimed-user-display').textContent = disp;
+    document.getElementById('claimed-disc').textContent  = window._myDisc + '%';
+    document.getElementById('claimed-code').textContent  = window._myCode;
+    const cw = document.getElementById('claimed-screen');
+    cw.style.display = 'block';
+    cw.classList.add('show');
+    return;
+  }
+
+  // ── Fresh user or admin → coupon grid ──
+  const cs = document.getElementById('coupon-screen');
+  cs.classList.add('show');
+  document.getElementById('user-display').textContent = disp;
+
+  if (role === 'admin') {
+    document.getElementById('admin-chip').style.display = 'flex';
+    document.getElementById('admin-panel').style.display = 'block';
+  }
+
+  loadCards();
+}
+
+function showErr(msg) {
+  const e = document.getElementById('login-err');
+  e.textContent = msg;
+  e.classList.add('show');
+}
+
+// ══ LOGOUT ══
+async function doLogout() {
+  await fetch('/api/logout', { method: 'POST' });
+  location.reload();
+}
+
+// ══ LOAD CARDS ══
+async function loadCards() {
+  const res = await fetch('/api/cards');
+  if (!res.ok) return;
+  const cards = await res.json();
+
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  let remaining = 0, claimed = 0;
+
+  cards.forEach((c, i) => {
+    if (c.claimed) claimed++; else remaining++;
+
+    const div = document.createElement('div');
+    div.dataset.id = c.id;
+
+    if (role === 'admin') {
+      // Admin: see everything — codes fetched separately
+      div.className = 'c-card admin-card';
+      div.innerHTML = `
+        <div class="c-num">#${String(i+1).padStart(2,'0')}</div>
+        <div style="font-size:28px;margin-bottom:8px">${ICONS[i % ICONS.length]}</div>
+        <div class="admin-disc">${c.discount}%</div>
+        <div style="font-size:10px;font-weight:600;color:var(--text3);letter-spacing:1px;margin-bottom:8px">OFF</div>
+        <div class="admin-code-text admin-code" data-id="${c.id}">…</div>
+        <span class="admin-status ${c.claimed ? 'claimed' : 'free'}">${c.claimed ? 'Claimed' : 'Available'}</span>
+      `;
+
+    } else if (c.mine) {
+      // My card — full reveal
+      div.className = 'c-card mine';
+      div.innerHTML = `
+        <div class="c-num">#${String(i+1).padStart(2,'0')}</div>
+        <div class="mine-tag">✓ Yours</div>
+        <div class="mine-icon">${ICONS[i % ICONS.length]}</div>
+        <div class="mine-disc">${window._myDisc}%</div>
+        <div class="mine-off">OFF</div>
+        <div class="mine-code-box">
+          <div class="mine-code-lbl">Coupon Code</div>
+          <div class="mine-code">${window._myCode}</div>
+        </div>
+        <button class="copy-btn" onclick="copyCode('${window._myCode}')">📋 Copy</button>
+      `;
+
+    } else if (c.claimed) {
+      // Claimed by someone else — show card but NO discount info
+      div.className = 'c-card taken';
+      div.innerHTML = `
+        <div class="c-num">#${String(i+1).padStart(2,'0')}</div>
+        <div class="taken-icon">${ICONS[i % ICONS.length]}</div>
+        <div class="taken-dash">—</div>
+        <div class="taken-label">Already Claimed</div>
+      `;
+
+    } else {
+      // Mystery card — unclaimed, waiting to be picked
+      div.className = 'c-card mystery';
+      div.innerHTML = `
+        <div class="c-num">#${String(i+1).padStart(2,'0')}</div>
+        <div class="mystery-icon">${ICONS[i % ICONS.length]}</div>
+        <div class="mystery-box">
+          <div class="mystery-q">?%</div>
+          <div class="mystery-q-label">Hidden</div>
+        </div>
+        <div class="mystery-hint">Tap to reveal &amp; claim</div>
+        <button class="reveal-btn" onclick="claimCard(${c.id})">✦ Reveal</button>
+      `;
+    }
+
+    grid.appendChild(div);
+
+    // Stagger entrance
+    div.style.opacity = '0';
+    div.style.transform = 'translateY(18px) scale(0.96)';
+    setTimeout(() => {
+      div.style.transition = 'opacity .4s ease, transform .45s cubic-bezier(.34,1.56,.64,1)';
+      div.style.opacity  = '';
+      div.style.transform = '';
+    }, 45 * i);
+  });
+
+  document.getElementById('stat-remaining').textContent = remaining;
+  document.getElementById('stat-claimed').textContent   = claimed;
+
+  if (role === 'admin') loadAdminCodes();
+}
+
+async function loadAdminCodes() {
+  const res = await fetch('/api/admin/coupons');
+  if (!res.ok) return;
+  const coupons = await res.json();
+  const map = {};
+  coupons.forEach(c => { map[c.id] = c.code; });
+  document.querySelectorAll('.admin-code[data-id]').forEach(el => {
+    el.textContent = map[el.dataset.id] || '—';
+  });
+}
+
+// ══ CLAIM ══
+async function claimCard(id) {
+  if (myClaimedId) { showToast('You already have a coupon!'); return; }
+  if (role !== 'user') return;
+
+  const res  = await fetch(`/api/claim/${id}`, { method: 'POST' });
+  const data = await res.json();
+
+  if (data.error === 'already_claimed') {
+    myClaimedId    = data.id;
+    window._myCode = data.code;
+    window._myDisc = data.discount;
+    loadCards();
+    return;
+  }
+  if (data.error) { showToast('⚠️ ' + data.error); loadCards(); return; }
+
+  myClaimedId    = data.id;
+  window._myCode = data.code;
+  window._myDisc = data.discount;
+  await loadCards();
+  showWinner(data.discount, data.code);
+  fireConfetti();
+  // After closing modal, any further login will land on claimed wall (backend handles it)
+}
+
+// ══ WINNER MODAL ══
+function showWinner(disc, code) {
+  document.getElementById('w-disc').textContent = disc + '%';
+  document.getElementById('w-code').textContent = code;
+  document.getElementById('winner-overlay').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('winner-overlay').classList.remove('open');
+}
+document.getElementById('winner-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+function copyWinner() {
+  copyCode(document.getElementById('w-code').textContent);
+}
+function copyCode(code) {
+  navigator.clipboard.writeText(code).then(() => showToast('✅ Copied: ' + code));
+}
+function copyClaimed() {
+  copyCode(document.getElementById('claimed-code').textContent);
+}
+
+// ══ CONFETTI ══
+function fireConfetti() {
+  const wrap = document.getElementById('confetti');
+  wrap.innerHTML = '';
+  const colors = ['#d42b2b','#ff6b6b','#fff','#ffd700','#ff8c42','#a8dadc'];
+  for (let i = 0; i < 70; i++) {
+    const p   = document.createElement('div');
+    const sz  = 5 + Math.random() * 8;
+    const dur = 0.9 + Math.random() * 1.2;
+    const del = Math.random() * 0.4;
+    const eY  = 340 + Math.random() * 180;
+    const eX  = (Math.random() - 0.5) * 280;
+    const rot = Math.random() * 720;
+    p.style.cssText = `position:absolute;width:${sz}px;height:${sz}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      border-radius:${Math.random()>.5?'50%':'2px'};
+      left:calc(50% + ${(Math.random()-.5)*60}px);top:15%;
+      animation:cf${i} ${dur}s ${del}s ease-in forwards;`;
+    const s = document.createElement('style');
+    s.textContent=`@keyframes cf${i}{to{transform:translate(${eX}px,${eY}px) rotate(${rot}deg);opacity:0}}`;
+    document.head.appendChild(s);
+    wrap.appendChild(p);
+    setTimeout(()=>s.remove(),(dur+del+.1)*1000);
+  }
+}
+
+// ══ TOAST ══
+let toastT;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ══ ADMIN DRAWER ══
+function toggleDrawer() {
+  const d = document.getElementById('admin-drawer');
+  d.classList.toggle('open');
+  if (d.classList.contains('open')) renderTab();
+}
+function switchTab(tab, el) {
+  currentTab = tab;
+  document.querySelectorAll('.dtab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderTab();
+}
+async function renderTab() {
+  const body = document.getElementById('drawer-body');
+  if (currentTab === 'whitelist') {
+    const res  = await fetch('/api/admin/whitelist');
+    const list = await res.json();
+    body.innerHTML = `
+      <div class="add-row">
+        <input class="d-input" id="wl-c" type="text" placeholder="Email or phone"/>
+        <input class="d-input" id="wl-l" type="text" placeholder="Name (optional)" style="max-width:120px"/>
+        <button class="d-add-btn" onclick="addWL()">Add</button>
+      </div>
+      ${list.length ? list.map(w=>`
+        <div class="wl-item">
+          <div>
+            <div class="wl-contact">${w.contact}</div>
+            ${w.label?`<div class="wl-lbl">${w.label}</div>`:''}
+          </div>
+          <button class="wl-del" onclick="removeWL(${w.id})">Remove</button>
+        </div>`).join('')
+      : '<div style="text-align:center;padding:20px;color:var(--text3);font-size:13px">No users whitelisted yet.</div>'}
+    `;
+  } else {
+    const res  = await fetch('/api/admin/coupons');
+    const list = await res.json();
+    const cl   = list.filter(c=>c.claimed).length;
+    body.innerHTML = `
+      <div style="display:flex;gap:10px;margin-bottom:14px">
+        <div style="flex:1;background:var(--red-pale);border:1px solid rgba(212,43,43,.15);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-family:Sora,sans-serif;font-size:28px;font-weight:800;color:var(--red)">${cl}</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:1px;color:var(--red);text-transform:uppercase;opacity:.7">Claimed</div>
+        </div>
+        <div style="flex:1;background:#edfff5;border:1px solid rgba(26,158,92,.15);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-family:Sora,sans-serif;font-size:28px;font-weight:800;color:#1a9e5c">${25-cl}</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:1px;color:#1a9e5c;text-transform:uppercase;opacity:.7">Available</div>
+        </div>
+      </div>
+      ${list.map(c=>`
+        <div class="cp-row">
+          <div class="cp-code">${c.code}</div>
+          <div class="cp-disc">${c.discount}%</div>
+          <div>${c.claimed?'<span class="badge-claimed">Claimed</span>':'<span class="badge-free">Free</span>'}</div>
+        </div>`).join('')}
+    `;
+  }
+}
+async function addWL() {
+  const contact = document.getElementById('wl-c').value.trim();
+  const label   = document.getElementById('wl-l').value.trim();
+  if (!contact) return;
+  const res  = await fetch('/api/admin/whitelist/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contact,label})});
+  const data = await res.json();
+  if (data.error) { showToast('⚠️ '+data.error); return; }
+  showToast('✅ Added: '+contact);
+  renderTab();
+}
+async function removeWL(id) {
+  await fetch(`/api/admin/whitelist/remove/${id}`,{method:'DELETE'});
+  renderTab();
+}
+
+// ══ PARTICLES (subtle, light-mode) ══
+(function(){
+  const cv = document.getElementById('canvas');
+  const cx = cv.getContext('2d');
+  let W, H;
+  const pts = [];
+  function resize(){ W=cv.width=window.innerWidth; H=cv.height=window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  for(let i=0;i<55;i++){
+    pts.push({
+      x:Math.random()*window.innerWidth,
+      y:Math.random()*window.innerHeight,
+      vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,
+      r:Math.random()*2+.5,a:Math.random()*.4+.1
+    });
+  }
+  function draw(){
+    cx.clearRect(0,0,W,H);
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<120){
+          cx.beginPath();cx.moveTo(pts[i].x,pts[i].y);cx.lineTo(pts[j].x,pts[j].y);
+          cx.strokeStyle=`rgba(212,43,43,${0.05*(1-d/120)})`;cx.lineWidth=.8;cx.stroke();
+        }
+      }
+    }
+    pts.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
+      if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+      cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      cx.fillStyle=`rgba(212,43,43,${p.a})`;cx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>
